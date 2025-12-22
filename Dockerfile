@@ -76,7 +76,9 @@ RUN chown root:www-data ./ \
     # Files should not have execute set, but directories need it
     && find ./ -type d -exec chmod 750 {} \; \
     # Create necessary directories
-    && mkdir -p /pelican-data/storage /pelican-data/plugins /var/www/html/storage/app/public /var/run/supervisord /etc/supercronic \
+    && mkdir -p /pelican-data/storage /var/www/html/storage/app/public /var/run/supervisord /etc/supercronic \
+    # move plugins directory to /pelican-data to allow proper symlinking
+    && mv /var/www/html/plugins /pelican-data/plugins \
     # Symlinks for env, database, storage, and plugins
     && ln -s /pelican-data/.env ./.env \
     && ln -s /pelican-data/database/database.sqlite ./database/database.sqlite \
