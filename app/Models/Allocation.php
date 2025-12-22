@@ -118,6 +118,13 @@ class Allocation extends Model
     /** @return Attribute<string, never> */
     protected function address(): Attribute
     {
+        # if alias is set and noPort is in notes, use alias without port
+        if ($this->has_alias && str_contains($this->notes ?? '', 'noPort')) {
+            return Attribute::make(
+                get: fn () => $this->alias,
+            );
+        }
+
         return Attribute::make(
             get: fn () => (is_ipv6($this->alias) ? "[$this->alias]" : $this->alias) . ":$this->port",
         );
