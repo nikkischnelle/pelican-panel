@@ -1,0 +1,11 @@
+version: "1"
+rules:
+  - base: main
+    upstream: pelican-dev/panel:main
+    mergeMethod: rebase
+    label: ":arrow_heading_down: pull"
+    reviewers:
+      - nikkischnelle
+    assignees:
+      - nikkischnelle
+    conflictLabel: ":warning: merge conflict"
